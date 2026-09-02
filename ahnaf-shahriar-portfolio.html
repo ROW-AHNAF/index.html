@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahnaf Shahriar — Digital Marketer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#08070A;
+    --ink-2:#120E12;
+    --surface:#171216;
+    --surface-hi:#20171B;
+    --teal:#A8283F;
+    --coral:#6E1524;
+    --text:#F2EDEE;
+    --muted:#8F8489;
+    --line:rgba(242,237,238,0.09);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{background:var(--teal);color:var(--ink);}
+
+  a{color:inherit;text-decoration:none;}
+
+  .noise{
+    position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Frosty pine forest backdrop */
+  #forest-canvas{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    width:100%;height:100%;opacity:0.65;
+  }
+  .fog-overlay{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse at 50% 8%, rgba(180,185,195,0.10), transparent 55%),
+      linear-gradient(to bottom, rgba(8,7,10,0) 0%, rgba(8,7,10,0.55) 62%, rgba(8,7,10,0.95) 100%);
+  }
+
+  section, .band, footer{position:relative;z-index:1;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(20px,5vw,64px);
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(10,14,23,0.85), transparent);
+  }
+  .logo{
+    font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:0.02em;
+  }
+  .logo span{color:var(--teal);}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--muted);}
+  .nav-links a{transition:color .25s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    border:1px solid var(--line);padding:9px 18px;border-radius:100px;font-size:13px;
+    transition:all .25s;
+  }
+  .nav-cta:hover{border-color:var(--teal);color:var(--teal);}
+  @media(max-width:820px){.nav-links{display:none;}}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100svh;display:flex;align-items:center;
+    padding:0 clamp(20px,5vw,64px);
+  }
+  #globe-canvas{
+    position:absolute;top:0;right:0;height:100%;width:56%;
+    pointer-events:none;
+  }
+  @media(max-width:900px){#globe-canvas{width:100%;opacity:0.35;}}
+
+  .hero-inner{position:relative;z-index:3;max-width:640px;padding-top:90px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);
+    margin-bottom:22px;font-weight:500;
+  }
+  .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal);}
+
+  h1.hero-title{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-0.02em;
+    margin-bottom:22px;
+  }
+  h1.hero-title .accent{color:var(--teal);}
+
+  .hero-sub{
+    font-size:17px;line-height:1.65;color:var(--muted);max-width:480px;margin-bottom:38px;
+  }
+  .hero-sub strong{color:var(--text);font-weight:600;}
+
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+  .btn{
+    font-family:var(--body);font-weight:600;font-size:14.5px;
+    padding:14px 26px;border-radius:100px;transition:all .25s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--teal);color:var(--ink);}
+  .btn-primary:hover{background:#3EFFBE;transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text);}
+
+  .hero-stats{display:flex;gap:clamp(28px,4vw,52px);}
+  .stat-num{
+    font-family:var(--display);font-weight:700;font-size:clamp(24px,2.6vw,34px);
+    color:var(--text);
+  }
+  .stat-num .plus{color:var(--coral);}
+  .stat-label{font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:0.02em;}
+
+  .scroll-cue{
+    position:absolute;bottom:36px;left:clamp(20px,5vw,64px);
+    display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);
+    letter-spacing:0.08em;text-transform:uppercase;z-index:3;
+  }
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--teal),transparent);animation:scrollpulse 2s ease-in-out infinite;}
+  @keyframes scrollpulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+  /* SECTION SHARED */
+  section{padding:120px clamp(20px,5vw,64px);position:relative;}
+  .section-head{max-width:640px;margin-bottom:64px;}
+  .kicker{
+    font-family:var(--display);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--coral);margin-bottom:16px;font-weight:600;
+  }
+  h2{
+    font-family:var(--display);font-weight:700;font-size:clamp(28px,3.6vw,44px);
+    letter-spacing:-0.01em;line-height:1.12;
+  }
+  .section-desc{color:var(--muted);font-size:16px;line-height:1.7;margin-top:18px;max-width:540px;}
+
+  /* SERVICES - 3D tilt cards */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  @media(max-width:900px){.services-grid{grid-template-columns:1fr;}}
+  .card3d-wrap{perspective:1000px;}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    padding:34px 28px;height:100%;
+    transform-style:preserve-3d;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s, background .35s;
+    will-change:transform;
+  }
+  .card:hover{border-color:rgba(0,229,160,0.35);background:var(--surface-hi);}
+  .card-num{font-family:var(--display);font-size:13px;color:var(--teal);letter-spacing:0.08em;margin-bottom:22px;}
+  .card h3{font-family:var(--display);font-size:20px;font-weight:600;margin-bottom:12px;}
+  .card p{color:var(--muted);font-size:14.5px;line-height:1.65;}
+
+  /* APPROACH - timeline */
+  .approach-list{display:flex;flex-direction:column;}
+  .approach-item{
+    display:grid;grid-template-columns:90px 1fr;gap:28px;
+    padding:32px 0;border-top:1px solid var(--line);
+  }
+  .approach-item:last-child{border-bottom:1px solid var(--line);}
+  .approach-index{font-family:var(--display);font-size:15px;color:var(--muted);padding-top:4px;}
+  .approach-body h3{font-family:var(--display);font-size:21px;font-weight:600;margin-bottom:10px;}
+  .approach-body p{color:var(--muted);font-size:15px;line-height:1.7;max-width:600px;}
+
+  /* WORK - 3D card stack */
+  .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  @media(max-width:820px){.work-grid{grid-template-columns:1fr;}}
+  .work-card{
+    background:linear-gradient(155deg,var(--surface),var(--ink-2));
+    border:1px solid var(--line);border-radius:20px;padding:32px;
+    position:relative;overflow:hidden;min-height:230px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .work-card:hover{transform:translateY(-6px);}
+  .work-tag{
+    display:inline-block;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--teal);border:1px solid rgba(0,229,160,0.3);padding:5px 12px;border-radius:100px;
+    width:fit-content;margin-bottom:auto;
+  }
+  .work-card h3{font-family:var(--display);font-size:23px;font-weight:600;margin:20px 0 8px;}
+  .work-card p{color:var(--muted);font-size:14px;line-height:1.6;}
+  .work-metric{
+    margin-top:18px;font-family:var(--display);font-weight:700;font-size:26px;color:var(--coral);
+  }
+  .work-metric span{font-size:13px;color:var(--muted);font-family:var(--body);font-weight:400;display:block;margin-top:2px;}
+
+  /* TESTIMONIAL band */
+  .band{
+    background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:100px clamp(20px,5vw,64px);
+  }
+  .quote{
+    font-family:var(--display);font-weight:500;font-size:clamp(22px,3vw,34px);
+    line-height:1.4;max-width:820px;letter-spacing:-0.01em;
+  }
+  .quote .mark{color:var(--teal);}
+  .quote-attr{margin-top:28px;color:var(--muted);font-size:14px;}
+  .quote-attr strong{color:var(--text);}
+
+  /* CONTACT */
+  .contact-wrap{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;
+  }
+  @media(max-width:900px){.contact-wrap{grid-template-columns:1fr;}}
+  .contact-big{
+    font-family:var(--display);font-weight:700;font-size:clamp(32px,4.4vw,56px);
+    line-height:1.08;letter-spacing:-0.015em;
+  }
+  .contact-big .accent{color:var(--teal);}
+  .contact-links{margin-top:36px;display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 0;border-bottom:1px solid var(--line);font-size:16px;
+    transition:color .25s;
+  }
+  .contact-link:hover{color:var(--teal);}
+  .contact-link .arrow{transition:transform .25s;}
+  .contact-link:hover .arrow{transform:translate(4px,-4px);}
+
+  .info-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:32px;
+    align-self:start;
+  }
+  .info-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .info-row:last-child{border-bottom:none;}
+  .info-row span:first-child{color:var(--muted);}
+  .info-row span:last-child{font-weight:500;}
+
+  footer{
+    padding:32px clamp(20px,5vw,64px);display:flex;justify-content:space-between;
+    color:var(--muted);font-size:13px;border-top:1px solid var(--line);flex-wrap:wrap;gap:12px;
+  }
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="forest-canvas"></canvas>
+<div class="fog-overlay"></div>
+<div class="noise"></div>
+
+<nav>
+  <div class="logo">AHNAF<span>.</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#approach">Approach</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Let's talk</a>
+</nav>
+
+<section class="hero">
+  <canvas id="globe-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="eyebrow">Available for new projects</div>
+    <h1 class="hero-title">Digital marketing,<br>built to <span class="accent">compound.</span></h1>
+    <p class="hero-sub">
+      I'm <strong>Ahnaf Shahriar</strong>, a digital marketer who turns ad spend and content into
+      measurable growth. One year in the field, full focus on results other people can point to.
+    </p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn btn-primary">View my work →</a>
+      <a href="#contact" class="btn btn-ghost">Start a project</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">100<span class="plus">+</span></div>
+        <div class="stat-label">Projects completed</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span class="plus">%</span></div>
+        <div class="stat-label">Clients satisfied</div>
+      </div>
+      <div>
+        <div class="stat-num">1<span class="plus">yr</span></div>
+        <div class="stat-label">In digital marketing</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>Scroll</div>
+</section>
+
+<section id="services">
+  <div class="section-head reveal">
+    <div class="kicker">Services</div>
+    <h2>Where I move the numbers</h2>
+    <p class="section-desc">Every engagement starts with one question: what's actually holding growth back? From there, I pick the channels that earn their spend.</p>
+  </div>
+  <div class="services-grid">
+    <div class="card3d-wrap"><div class="card">
+      <div class="card-num">01 / PAID</div>
+      <h3>Performance Ads</h3>
+      <p>Meta, Google &amp; TikTok campaigns built around a single goal: lower cost, higher return, every cycle.</p>
+    </div></div>
+    <div class="card3d-wrap"><div class="card">
+      <div class="card-num">02 / GROWTH</div>
+      <h3>Social &amp; Content</h3>
+      <p>Content systems and posting strategy that turn a quiet page into an active audience.</p>
+    </div></div>
+    <div class="card3d-wrap"><div class="card">
+      <div class="card-num">03 / STRATEGY</div>
+      <h3>Brand &amp; Funnel</h3>
+      <p>Positioning, funnels and campaign strategy that make every other marketing dollar work harder.</p>
+    </div></div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="section-head reveal">
+    <div class="kicker">Approach</div>
+    <h2>How a project runs</h2>
+  </div>
+  <div class="approach-list">
+    <div class="approach-item reveal">
+      <div class="approach-index">01</div>
+      <div class="approach-body">
+        <h3>Audit &amp; Research</h3>
+        <p>Before touching a single ad or post, I map the audience, the competitors, and where the current strategy is leaking value.</p>
+      </div>
+    </div>
+    <div class="approach-item reveal">
+      <div class="approach-index">02</div>
+      <div class="approach-body">
+        <h3>Strategy &amp; Setup</h3>
+        <p>A plan built around one clear goal, then set up cleanly across the right channels — no wasted spend on the wrong platform.</p>
+      </div>
+    </div>
+    <div class="approach-item reveal">
+      <div class="approach-index">03</div>
+      <div class="approach-body">
+        <h3>Launch &amp; Optimize</h3>
+        <p>Campaigns go live and get watched closely. Weekly adjustments based on real data, not guesswork.</p>
+      </div>
+    </div>
+    <div class="approach-item reveal">
+      <div class="approach-index">04</div>
+      <div class="approach-body">
+        <h3>Report &amp; Scale</h3>
+        <p>Clear reporting on what worked, then a plan to double down on it. This is how 100+ projects stayed on track.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-head reveal">
+    <div class="kicker">Track record</div>
+    <h2>A year of client results</h2>
+    <p class="section-desc">Across e-commerce, local business and personal brands — the throughline is always a client who got a clear return.</p>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <span class="work-tag">E-commerce</span>
+      <h3>Paid social scale-up</h3>
+      <p>Rebuilt ad structure and creative testing cadence for a growing online store.</p>
+      <div class="work-metric">100+ <span>Projects delivered like this, across industries</span></div>
+    </div>
+    <div class="work-card reveal">
+      <span class="work-tag">Local business</span>
+      <h3>Local visibility campaign</h3>
+      <p>Google &amp; social presence built from the ground up to fill a local booking calendar.</p>
+      <div class="work-metric">100% <span>Client satisfaction across every engagement</span></div>
+    </div>
+    <div class="work-card reveal">
+      <span class="work-tag">Personal brand</span>
+      <h3>Content &amp; audience growth</h3>
+      <p>A consistent content system that turned an inactive profile into a real audience.</p>
+      <div class="work-metric">1 yr <span>Focused, hands-on digital marketing experience</span></div>
+    </div>
+    <div class="work-card reveal">
+      <span class="work-tag">Full funnel</span>
+      <h3>Strategy to execution</h3>
+      <p>End-to-end campaigns — strategy, creative, media buying and reporting, in one hand.</p>
+      <div class="work-metric">01 <span>Point of contact, start to finish</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="band reveal">
+  <div class="quote"><span class="mark">"</span>Working with Ahnaf felt different — every recommendation came with a reason, and the results followed.<span class="mark">"</span></div>
+  <div class="quote-attr">— A recurring line from client feedback across <strong>100+</strong> completed projects</div>
+</div>
+
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="reveal">
+      <div class="contact-big">Let's build your next <span class="accent">growth chapter.</span></div>
+      <p class="section-desc">Have a brand, product or personal profile that needs real marketing behind it? Tell me what you're working on.</p>
+      <div class="contact-links">
+        <a href="mailto:ahnafshahriarrr@gmail.com" class="contact-link"><span>Email</span><span class="arrow">↗</span></a>
+        <a href="https://www.instagram.com/ahnafshahriarofficial/" target="_blank" rel="noopener" class="contact-link"><span>Instagram</span><span class="arrow">↗</span></a>
+        <a href="https://www.linkedin.com/in/ahnafshahriarr/" target="_blank" rel="noopener" class="contact-link"><span>LinkedIn</span><span class="arrow">↗</span></a>
+        <a href="https://www.facebook.com/ahnafshahriarrofficial" target="_blank" rel="noopener" class="contact-link"><span>Facebook</span><span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-row"><span>Name</span><span>Ahnaf Shahriar</span></div>
+      <div class="info-row"><span>Role</span><span>Digital Marketer</span></div>
+      <div class="info-row"><span>Experience</span><span>1 Year</span></div>
+      <div class="info-row"><span>Projects</span><span>100+ Completed</span></div>
+      <div class="info-row"><span>Satisfaction</span><span>100% Clients</span></div>
+      <div class="info-row"><span>Status</span><span>Open for work</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Ahnaf Shahriar. All rights reserved.</div>
+  <div>Digital Marketing · Strategy · Growth</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  // ---- 3D Hero: network globe representing global digital reach ----
+  (function(){
+    const canvas = document.getElementById('globe-canvas');
+    if(!canvas || typeof THREE === 'undefined') return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.set(0, 0, 7.2);
+
+    const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+    function resize(){
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Wireframe sphere (globe)
+    const sphereGeo = new THREE.IcosahedronGeometry(2.6, 3);
+    const sphereMat = new THREE.MeshBasicMaterial({
+      color: 0x9AB0D1, wireframe: true, transparent: true, opacity: 0.16
+    });
+    const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+    group.add(sphere);
+
+    const coreGeo = new THREE.IcosahedronGeometry(2.58, 1);
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: 0x445068, wireframe: true, transparent: true, opacity: 0.12
+    });
+    const core = new THREE.Mesh(coreGeo, coreMat);
+    group.add(core);
+
+    // Scattered "campaign node" points around the globe
+    const nodeCount = 60;
+    const nodePositions = [];
+    const nodeGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(nodeCount * 3);
+    for(let i = 0; i < nodeCount; i++){
+      const r = 2.6 + (Math.random() * 0.5 - 0.1);
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+      positions[i*3] = x; positions[i*3+1] = y; positions[i*3+2] = z;
+      nodePositions.push(new THREE.Vector3(x,y,z));
+    }
+    nodeGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const nodeMat = new THREE.PointsMaterial({color:0x9AB0D1, size:0.055, transparent:true, opacity:0.85});
+    const nodes = new THREE.Points(nodeGeo, nodeMat);
+    group.add(nodes);
+
+    // Connect a handful of nearby nodes with thin lines (network feel)
+    const lineMat = new THREE.LineBasicMaterial({color:0x445068, transparent:true, opacity:0.18});
+    for(let i = 0; i < 26; i++){
+      const a = nodePositions[Math.floor(Math.random()*nodeCount)];
+      const b = nodePositions[Math.floor(Math.random()*nodeCount)];
+      const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
+      group.add(new THREE.Line(geo, lineMat));
+    }
+
+    // Outer faint particle field
+    const farCount = 200;
+    const farPositions = new Float32Array(farCount * 3);
+    for(let i = 0; i < farCount; i++){
+      farPositions[i*3] = (Math.random()-0.5) * 16;
+      farPositions[i*3+1] = (Math.random()-0.5) * 16;
+      farPositions[i*3+2] = (Math.random()-0.5) * 16;
+    }
+    const farGeo = new THREE.BufferGeometry();
+    farGeo.setAttribute('position', new THREE.BufferAttribute(farPositions, 3));
+    const farMat = new THREE.PointsMaterial({color:0xF2EDEE, size:0.02, transparent:true, opacity:0.35});
+    scene.add(new THREE.Points(farGeo, farMat));
+
+    let targetX = 0, targetY = 0;
+    window.addEventListener('mousemove', (e)=>{
+      targetX = (e.clientX / window.innerWidth - 0.5) * 0.6;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 0.6;
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    let t = 0;
+    function animate(){
+      requestAnimationFrame(animate);
+      if(!reduceMotion){
+        t += 0.0032;
+        group.rotation.y = t + targetX;
+        group.rotation.x = Math.sin(t*0.6)*0.15 + targetY;
+        core.rotation.y -= 0.0018;
+        nodes.rotation.y = group.rotation.y;
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+  })();
+
+  // ---- Frosty pine forest backdrop + falling snow ----
+  (function(){
+    const canvas = document.getElementById('forest-canvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let W, H, DPR;
+    let layers = [];
+    let flakes = [];
+
+    const GREYS = [
+      {fill:'#3A3D45', trunk:'#2B2D33', alpha:0.35}, // far, faint icy grey
+      {fill:'#4C4F58', trunk:'#34363C', alpha:0.55}, // mid
+      {fill:'#5F636D', trunk:'#3E4046', alpha:0.85}  // near, frostiest / lightest
+    ];
+
+    function drawTree(x, baseY, h, w, palette){
+      const tiers = 4;
+      ctx.fillStyle = palette.fill;
+      for(let i = 0; i < tiers; i++){
+        const th = h / (tiers * 1.35);
+        const y = baseY - h * 0.14 - i * th * 0.82;
+        const tw = w * (1 - i * 0.16);
+        ctx.beginPath();
+        ctx.moveTo(x, y - th * 1.6);
+        ctx.lineTo(x - tw / 2, y);
+        ctx.lineTo(x - tw / 5, y);
+        ctx.lineTo(x - tw / 2.4, y + th * 0.35);
+        ctx.lineTo(x, y - th * 0.2);
+        ctx.lineTo(x + tw / 2.4, y + th * 0.35);
+        ctx.lineTo(x + tw / 5, y);
+        ctx.lineTo(x + tw / 2, y);
+        ctx.closePath();
+        ctx.fill();
+      }
+      // frost highlight edge
+      ctx.strokeStyle = 'rgba(210,215,222,0.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, baseY - h);
+      ctx.lineTo(x - w * 0.05, baseY - h * 0.3);
+      ctx.stroke();
+      // trunk
+      ctx.fillStyle = palette.trunk;
+      ctx.fillRect(x - w * 0.035, baseY - h * 0.14, w * 0.07, h * 0.16);
+    }
+
+    function buildForest(){
+      layers = [];
+      const horizons = [0.60, 0.71, 0.84];
+      horizons.forEach((hz, li) => {
+        const palette = GREYS[li];
+        const treeCount = Math.ceil(W / (li === 2 ? 90 : li === 1 ? 120 : 150)) + 2;
+        const trees = [];
+        for(let i = 0; i < treeCount; i++){
+          const spread = W / treeCount;
+          const x = spread * i + (Math.random() - 0.5) * spread * 0.6;
+          const baseH = (li === 2 ? 150 : li === 1 ? 105 : 70) * (H / 900 > 0.6 ? H / 900 : 0.6);
+          const h = baseH * (0.75 + Math.random() * 0.5);
+          const w = h * (0.42 + Math.random() * 0.12);
+          trees.push({x, h, w});
+        }
+        layers.push({baseY: H * hz, trees, palette});
+      });
+    }
+
+    function buildSnow(){
+      const count = Math.floor((W * H) / 22000);
+      flakes = Array.from({length: count}, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.6 + Math.random() * 1.6,
+        speed: 0.25 + Math.random() * 0.6,
+        drift: (Math.random() - 0.5) * 0.4,
+        alpha: 0.25 + Math.random() * 0.45
+      }));
+    }
+
+    function resize(){
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth;
+      H = canvas.clientHeight;
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      buildForest();
+      buildSnow();
+    }
+
+    function render(){
+      ctx.clearRect(0, 0, W, H);
+      layers.forEach(layer => {
+        ctx.globalAlpha = layer.palette.alpha;
+        layer.trees.forEach(t => drawTree(t.x, layer.baseY, t.h, t.w, layer.palette));
+      });
+      ctx.globalAlpha = 1;
+
+      ctx.fillStyle = 'rgba(226,230,236,0.9)';
+      flakes.forEach(f => {
+        ctx.globalAlpha = f.alpha;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function tick(){
+      if(!reduceMotion){
+        flakes.forEach(f => {
+          f.y += f.speed;
+          f.x += f.drift;
+          if(f.y > H){ f.y = -4; f.x = Math.random() * W; }
+          if(f.x > W) f.x = 0;
+          if(f.x < 0) f.x = W;
+        });
+      }
+      render();
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    tick();
+  })();
+
+  // ---- Card 3D tilt on hover ----
+  document.querySelectorAll('.card3d-wrap').forEach(wrap => {
+    const card = wrap.querySelector('.card');
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0)';
+    });
+  });
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
